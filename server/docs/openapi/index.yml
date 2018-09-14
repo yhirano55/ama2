@@ -1,0 +1,10 @@
+openapi: 3.0.0
+
+info:
+  title: ama service
+  description: api server for ama
+  version: 1.0.0
+
+paths: []
+
+components: []
