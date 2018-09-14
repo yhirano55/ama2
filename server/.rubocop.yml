@@ -6,3 +6,8 @@ inherit_gem:
 
 AllCops:
   TargetRubyVersion: 2.5
+  Exclude:
+    - "node_modules/**/*" # rubocop config/default.yml
+    - "vendor/**/*"       # rubocop config/default.yml
+    - "db/schema.rb"
+    - "bin/bundle"
