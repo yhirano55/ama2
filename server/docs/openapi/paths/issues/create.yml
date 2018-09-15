@@ -1,0 +1,36 @@
+description: Create issue
+summary: Post issue
+operationId: postIssue
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - issue
+        properties:
+          issue:
+            type: object
+            required:
+              - subject
+              - description
+              - secret
+            properties:
+              subject:
+                type: string
+              description:
+                type: string
+              secret:
+                type: boolean
+responses:
+  '201':
+    description: Issue created
+    content:
+      application/json:
+        schema:
+          "$ref": "#/components/schemas/issue"
+  default:
+    description: Invalid access

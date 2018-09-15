@@ -1,0 +1,47 @@
+description: Returns comments
+summary: Get collection of comment
+operationId: getComments
+parameters:
+- name: user_id
+  in: query
+  description: user_id
+  schema:
+    type: integer
+- name: issue_id
+  in: query
+  description: issue_id
+  schema:
+    type: integer
+- name: sort
+  in: query
+  description: Type of sort
+  schema:
+    type: string
+    enum:
+      - oldest
+      - newest
+      - most_liked
+- name: page
+  in: query
+  description: page number
+  schema:
+    type: integer
+responses:
+  '200':
+    description: Collection of comment with page
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - data
+            - links
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/comment"
+            links:
+              $ref: "#/components/schemas/links"
+  default:
+    description: Invalid access

@@ -5,6 +5,55 @@ info:
   description: api server for ama
   version: 1.0.0
 
-paths: []
+paths:
+  /authentications:
+    create:
+      $ref: ./docs/openapi/paths/authentications/create.yml
+  /users:
+    get:
+      $ref: ./docs/openapi/paths/users/index.yml
+  /users/{id}:
+    get:
+      $ref: ./docs/openapi/paths/users/show.yml
+  /issues:
+    get:
+      $ref: ./docs/openapi/paths/issues/index.yml
+    post:
+      $ref: ./docs/openapi/paths/issues/create.yml
+  /issues/{id}:
+    get:
+      $ref: ./docs/openapi/paths/issues/show.yml
+    put:
+      $ref: ./docs/openapi/paths/issues/update.yml
+    delete:
+      $ref: ./docs/openapi/paths/issues/delete.yml
+  /comments:
+    get:
+      $ref: ./docs/openapi/paths/comments/index.yml
+    post:
+      $ref: ./docs/openapi/paths/comments/create.yml
+  /comments/{id}:
+    get:
+      $ref: ./docs/openapi/paths/comments/show.yml
+    put:
+      $ref: ./docs/openapi/paths/comments/update.yml
+    delete:
+      $ref: ./docs/openapi/paths/comments/delete.yml
+  /like:
+    post:
+      $ref: ./docs/openapi/paths/likes/create.yml
+    delete:
+      $ref: ./docs/openapi/paths/likes/delete.yml
 
-components: []
+components:
+  securitySchemes:
+    $ref: ./docs/openapi/components/securitySchemes.yml
+  schemas:
+    comment:
+      $ref: ./docs/openapi/components/schemas/comment.yml
+    issue:
+      $ref: ./docs/openapi/components/schemas/issue.yml
+    links:
+      $ref: ./docs/openapi/components/schemas/links.yml
+    user:
+      $ref: ./docs/openapi/components/schemas/user.yml

@@ -1,0 +1,28 @@
+description: Returns users
+summary: Get collection of user
+operationId: getUsers
+parameters:
+- name: page
+  in: query
+  description: page number
+  schema:
+    type: integer
+responses:
+  '200':
+    description: Collection of user with page
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - data
+            - links
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/user"
+            links:
+              $ref: "#/components/schemas/links"
+  default:
+    description: Invalid access.

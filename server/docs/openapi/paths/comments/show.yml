@@ -1,0 +1,19 @@
+description: Returns comment
+summary: Find comments by id
+operationId: getCommentsById
+parameters:
+- name: id
+  in: path
+  description: issue_id
+  required: true
+  schema:
+    type: integer
+responses:
+  '200':
+    description: Comment response
+    content:
+      application/json:
+        schema:
+          "$ref": "#/components/schemas/comment"
+  default:
+    description: Invalid access

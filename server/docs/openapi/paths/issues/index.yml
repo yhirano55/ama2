@@ -1,0 +1,43 @@
+description: Returns issues
+summary: Get collection of issue
+operationId: getIssues
+parameters:
+- name: user_id
+  in: query
+  description: user_id
+  schema:
+    type: integer
+- name: sort
+  in: query
+  description: Type of sort
+  schema:
+    type: string
+    enum:
+      - oldest
+      - newest
+      - most_commented
+      - most_liked
+- name: page
+  in: query
+  description: page number
+  schema:
+    type: integer
+responses:
+  '200':
+    description: Collection of issue with page
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - data
+            - links
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/issue"
+            links:
+              $ref: "#/components/schemas/links"
+  default:
+    description: Invalid access

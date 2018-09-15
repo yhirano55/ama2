@@ -1,0 +1,30 @@
+description: Create like
+summary: Post like
+operationId: postLike
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - type
+          - resource_id
+        properties:
+          type:
+            type: string
+            enum:
+              - Issue
+              - Comment
+          resource_id:
+            type: integer
+responses:
+  '201':
+    description: Empty json
+    content:
+      application/json:
+        schema: {}
+  default:
+    description: Invalid access

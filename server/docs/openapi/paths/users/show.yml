@@ -1,0 +1,19 @@
+description: Returns user
+summary: Find users by id
+operationId: getUsersById
+parameters:
+- name: id
+  in: path
+  description: user_id
+  required: true
+  schema:
+    type: integer
+responses:
+  '200':
+    description: user response
+    content:
+      application/json:
+        schema:
+          "$ref": "#/components/schemas/user"
+  default:
+    description: Invalid access.

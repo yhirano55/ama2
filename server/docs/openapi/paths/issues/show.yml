@@ -1,0 +1,19 @@
+description: Returns issue
+summary: Find issues by id
+operationId: getIssuesById
+parameters:
+- name: id
+  in: path
+  description: issue_id
+  required: true
+  schema:
+    type: integer
+responses:
+  '200':
+    description: Issue response
+    content:
+      application/json:
+        schema:
+          "$ref": "#/components/schemas/issue"
+  default:
+    description: Invalid access

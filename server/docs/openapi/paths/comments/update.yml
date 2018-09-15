@@ -1,0 +1,43 @@
+description: Update comment
+summary: Put comment
+operationId: putComment
+security:
+  - bearerAuth: []
+parameters:
+- name: id
+  in: path
+  description: comment_id
+  required: true
+  schema:
+    type: integer
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - comment
+        properties:
+          comment:
+            type: object
+            required:
+              - issue_id
+              - content
+              - secret
+            properties:
+              issue_id:
+                type: integer
+              content:
+                type: string
+              secret:
+                type: boolean
+responses:
+  '200':
+    description: Comment updated
+    content:
+      application/json:
+        schema:
+          "$ref": "#/components/schemas/comment"
+  default:
+    description: Invalid access

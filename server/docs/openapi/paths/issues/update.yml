@@ -1,0 +1,43 @@
+description: Update issue
+summary: Put issue
+operationId: putIssue
+security:
+  - bearerAuth: []
+parameters:
+- name: id
+  in: path
+  description: issue_id
+  required: true
+  schema:
+    type: integer
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - issue
+        properties:
+          issue:
+            type: object
+            required:
+              - subject
+              - description
+              - secret
+            properties:
+              subject:
+                type: string
+              description:
+                type: string
+              secret:
+                type: boolean
+responses:
+  '200':
+    description: Issue updated
+    content:
+      application/json:
+        schema:
+          "$ref": "#/components/schemas/issue"
+  default:
+    description: Invalid access

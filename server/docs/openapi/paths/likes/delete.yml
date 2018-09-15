@@ -1,0 +1,29 @@
+description: Delete like
+summary: Delete like
+operationId: deleteLike
+security:
+  - bearerAuth: []
+parameters:
+- name: resource_id
+  in: query
+  description: resource_id
+  required: true
+  schema:
+    type: integer
+- name: type
+  in: query
+  description: Type of resource
+  required: true
+  schema:
+    type: string
+    enum:
+      - Issue
+      - Comment
+responses:
+  '200':
+    description: Empty json
+    content:
+      application/json:
+        schema: {}
+  default:
+    description: Invalid access

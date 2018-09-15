@@ -1,0 +1,20 @@
+description: Delete issue
+summary: Delete issue
+operationId: deleteIssue
+security:
+  - bearerAuth: []
+parameters:
+- name: id
+  in: path
+  description: issue_id
+  required: true
+  schema:
+    type: integer
+responses:
+  '200':
+    description: Empty json
+    content:
+      application/json:
+        schema: {}
+  default:
+    description: Invalid access

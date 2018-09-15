@@ -1,0 +1,31 @@
+type: object
+required:
+  - id
+  - subject
+  - description
+  - user
+  - comments_count
+  - likes_count
+  - created_at
+  - updated_at
+properties:
+  id:
+    type: integer
+  subject:
+    type: string
+  description:
+    type: string
+  user:
+    anyOf:
+    - type: "null"
+    - $ref: "#/components/schemas/user"
+  comments_count:
+    type: integer
+  likes_count:
+    type: integer
+  created_at:
+    type: string
+    format: date-time
+  updated_at:
+    type: string
+    format: date-time

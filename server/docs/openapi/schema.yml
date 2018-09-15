@@ -4,5 +4,584 @@ info:
   title: ama service
   description: api server for ama
   version: 1.0.0
-paths: []
-components: []
+paths:
+  "/authentications":
+    create:
+      description: Return JWT
+      summary: Create JWT
+      operationId: createAuthentication
+      responses:
+        '200':
+          description: Return JWT with text/html
+        default:
+          description: Invalid access
+  "/users":
+    get:
+      description: Returns users
+      summary: Get collection of user
+      operationId: getUsers
+      parameters:
+      - name: page
+        in: query
+        description: page number
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Collection of user with page
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - links
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/user"
+                  links:
+                    "$ref": "#/components/schemas/links"
+        default:
+          description: Invalid access.
+  "/users/{id}":
+    get:
+      description: Returns user
+      summary: Find users by id
+      operationId: getUsersById
+      parameters:
+      - name: id
+        in: path
+        description: user_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: user response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/user"
+        default:
+          description: Invalid access.
+  "/issues":
+    get:
+      description: Returns issues
+      summary: Get collection of issue
+      operationId: getIssues
+      parameters:
+      - name: user_id
+        in: query
+        description: user_id
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: Type of sort
+        schema:
+          type: string
+          enum:
+          - oldest
+          - newest
+          - most_commented
+          - most_liked
+      - name: page
+        in: query
+        description: page number
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Collection of issue with page
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - links
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/issue"
+                  links:
+                    "$ref": "#/components/schemas/links"
+        default:
+          description: Invalid access
+    post:
+      description: Create issue
+      summary: Post issue
+      operationId: postIssue
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - issue
+              properties:
+                issue:
+                  type: object
+                  required:
+                  - subject
+                  - description
+                  - secret
+                  properties:
+                    subject:
+                      type: string
+                    description:
+                      type: string
+                    secret:
+                      type: boolean
+      responses:
+        '201':
+          description: Issue created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/issue"
+        default:
+          description: Invalid access
+  "/issues/{id}":
+    get:
+      description: Returns issue
+      summary: Find issues by id
+      operationId: getIssuesById
+      parameters:
+      - name: id
+        in: path
+        description: issue_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Issue response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/issue"
+        default:
+          description: Invalid access
+    put:
+      description: Update issue
+      summary: Put issue
+      operationId: putIssue
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: issue_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - issue
+              properties:
+                issue:
+                  type: object
+                  required:
+                  - subject
+                  - description
+                  - secret
+                  properties:
+                    subject:
+                      type: string
+                    description:
+                      type: string
+                    secret:
+                      type: boolean
+      responses:
+        '200':
+          description: Issue updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/issue"
+        default:
+          description: Invalid access
+    delete:
+      description: Delete issue
+      summary: Delete issue
+      operationId: deleteIssue
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: issue_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Empty json
+          content:
+            application/json:
+              schema: {}
+        default:
+          description: Invalid access
+  "/comments":
+    get:
+      description: Returns comments
+      summary: Get collection of comment
+      operationId: getComments
+      parameters:
+      - name: user_id
+        in: query
+        description: user_id
+        schema:
+          type: integer
+      - name: issue_id
+        in: query
+        description: issue_id
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: Type of sort
+        schema:
+          type: string
+          enum:
+          - oldest
+          - newest
+          - most_liked
+      - name: page
+        in: query
+        description: page number
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Collection of comment with page
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - links
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/comment"
+                  links:
+                    "$ref": "#/components/schemas/links"
+        default:
+          description: Invalid access
+    post:
+      description: Create comment
+      summary: Post comment
+      operationId: postComment
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - comment
+              properties:
+                comment:
+                  type: object
+                  required:
+                  - issue_id
+                  - content
+                  - secret
+                  properties:
+                    issue_id:
+                      type: integer
+                    content:
+                      type: string
+                    secret:
+                      type: boolean
+      responses:
+        '201':
+          description: Comment created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/comment"
+        default:
+          description: Invalid access
+  "/comments/{id}":
+    get:
+      description: Returns comment
+      summary: Find comments by id
+      operationId: getCommentsById
+      parameters:
+      - name: id
+        in: path
+        description: issue_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Comment response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/comment"
+        default:
+          description: Invalid access
+    put:
+      description: Update comment
+      summary: Put comment
+      operationId: putComment
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: comment_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - comment
+              properties:
+                comment:
+                  type: object
+                  required:
+                  - issue_id
+                  - content
+                  - secret
+                  properties:
+                    issue_id:
+                      type: integer
+                    content:
+                      type: string
+                    secret:
+                      type: boolean
+      responses:
+        '200':
+          description: Comment updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/comment"
+        default:
+          description: Invalid access
+    delete:
+      description: Delete comment
+      summary: Delete comment
+      operationId: deleteComment
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: comment_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Empty json
+          content:
+            application/json:
+              schema: {}
+        default:
+          description: Invalid access
+  "/like":
+    post:
+      description: Create like
+      summary: Post like
+      operationId: postLike
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - resource_id
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - Issue
+                  - Comment
+                resource_id:
+                  type: integer
+      responses:
+        '201':
+          description: Empty json
+          content:
+            application/json:
+              schema: {}
+        default:
+          description: Invalid access
+    delete:
+      description: Delete like
+      summary: Delete like
+      operationId: deleteLike
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: resource_id
+        in: query
+        description: resource_id
+        required: true
+        schema:
+          type: integer
+      - name: type
+        in: query
+        description: Type of resource
+        required: true
+        schema:
+          type: string
+          enum:
+          - Issue
+          - Comment
+      responses:
+        '200':
+          description: Empty json
+          content:
+            application/json:
+              schema: {}
+        default:
+          description: Invalid access
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    comment:
+      type: object
+      required:
+      - id
+      - issue_id
+      - content
+      - user
+      - likes_count
+      - created_at
+      - updated_at
+      properties:
+        id:
+          type: integer
+        issue_id:
+          type: integer
+        content:
+          type: string
+        user:
+          anyOf:
+          - type: 'null'
+          - "$ref": "#/components/schemas/user"
+        comments_count:
+          type: integer
+        likes_count:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    issue:
+      type: object
+      required:
+      - id
+      - subject
+      - description
+      - user
+      - comments_count
+      - likes_count
+      - created_at
+      - updated_at
+      properties:
+        id:
+          type: integer
+        subject:
+          type: string
+        description:
+          type: string
+        user:
+          anyOf:
+          - type: 'null'
+          - "$ref": "#/components/schemas/user"
+        comments_count:
+          type: integer
+        likes_count:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    links:
+      type: object
+      properties:
+        self:
+          type: string
+        first:
+          type: string
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+        last:
+          anyOf:
+          - type: string
+          - type: 'null'
+    user:
+      type: object
+      required:
+      - id
+      - nickname
+      - avatar_url
+      - comments_count
+      - likes_count
+      - created_at
+      - updated_at
+      properties:
+        id:
+          type: integer
+        nickname:
+          type: string
+        avatar_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+        comments_count:
+          type: integer
+        likes_count:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time

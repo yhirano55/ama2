@@ -1,0 +1,28 @@
+type: object
+required:
+  - id
+  - nickname
+  - avatar_url
+  - comments_count
+  - likes_count
+  - created_at
+  - updated_at
+properties:
+  id:
+    type: integer
+  nickname:
+    type: string
+  avatar_url:
+    anyOf:
+    - type: string
+    - type: "null"
+  comments_count:
+    type: integer
+  likes_count:
+    type: integer
+  created_at:
+    type: string
+    format: date-time
+  updated_at:
+    type: string
+    format: date-time

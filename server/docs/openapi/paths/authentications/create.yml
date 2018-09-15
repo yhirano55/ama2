@@ -1,0 +1,8 @@
+description: Return JWT
+summary: Create JWT
+operationId: createAuthentication
+responses:
+  '200':
+    description: Return JWT with text/html
+  default:
+    description: Invalid access
