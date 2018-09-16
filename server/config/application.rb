@@ -27,9 +27,12 @@ module Ama
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
-    # config.api_only = true
+    driver = Committee::Drivers::OpenAPI3.new
+    schema_json = JSON.parse(File.read(Rails.root.join("docs", "openapi", "schema.json")))
+
+    config.x.committee.enable_request_validation = false
+    config.x.committee.enable_response_validation = false
+    config.x.committee.driver = driver
+    config.x.committee.schema = driver.parse(schema_json)
   end
 end
