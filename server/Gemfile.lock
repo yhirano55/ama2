@@ -119,6 +119,7 @@ GEM
       hana
     json_schema (0.19.1)
     jsonapi-renderer (0.2.0)
+    jwt (2.1.0)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.1.1)
@@ -291,6 +292,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   json_refs
+  jwt
   kaminari
   listen (>= 3.0.5, < 3.2)
   newrelic_rpm

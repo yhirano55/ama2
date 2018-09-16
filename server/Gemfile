@@ -10,6 +10,7 @@ gem "aws-sdk-s3", require: false
 gem "bootsnap", ">= 1.1.0", require: false
 gem "committee", github: "FiNCDeveloper/committee"
 gem "counter_culture"
+gem "jwt"
 gem "kaminari"
 gem "newrelic_rpm"
 gem "omniauth-github"
