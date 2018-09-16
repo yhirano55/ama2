@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Authentication</title>
+  <script>
+    "use strict";
+
+    document.addEventListener("DOMContentLoaded", function() {
+      window.addEventListener("message", function(e) {
+        e.source.postMessage(<%== @payload.to_json %>, e.origin);
+      }, false);
+    });
+  </script>
+</head>
+<body>
+</body>
+</html>

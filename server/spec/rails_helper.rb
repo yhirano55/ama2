@@ -22,4 +22,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   config.include FactoryBot::Syntax::Methods
   config.include ActionDispatch::TestProcess
+  config.include RequestHelper,   type: :request
+  config.include CommitteeHelper, type: :request
+  config.include OmniAuthHelper,  type: :request
 end
