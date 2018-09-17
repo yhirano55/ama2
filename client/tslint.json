@@ -6,5 +6,14 @@
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js"
     ]
+  },
+  "rules": {
+    "jsx-boolean-value": false,
+    "jsx-no-lambda": false,
+    "interface-over-type-literal": false,
+    "object-literal-sort-keys": false,
+    "no-implicit-dependencies": [true, "dev"],
+    "no-boolean-literal-compare": false,
+    "variable-name": false
   }
 }
