@@ -18,20 +18,22 @@ import { ConnectedRouter } from "connected-react-router"
 import { Provider } from "react-redux"
 import { Route, Switch } from "react-router"
 
+import { AuthenticatedRoute, UnauthenticatedRoute } from "./helpers/routes"
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/" component={IssueList} />
         <Route exact path="/issues" component={IssueList} />
-        <Route exact path="/issues/new" component={NewIssue} />
+        <AuthenticatedRoute exact path="/issues/new" component={NewIssue} />
         <Route exact path="/issues/:id" component={IssueDetail} />
-        <Route exact path="/issues/:id/edit" component={EditIssue} />
+        <AuthenticatedRoute exact path="/issues/:id/edit" component={EditIssue} />
         <Route exact path="/comments" component={CommentList} />
-        <Route exact path="/comments/:id/edit" component={EditComment} />
+        <AuthenticatedRoute exact path="/comments/:id/edit" component={EditComment} />
         <Route exact path="/users" component={UserList} />
         <Route exact path="/users/:id" component={UserDetail} />
-        <Route exact path="/auth/github" component={Authentication} />
+        <UnauthenticatedRoute exact path="/auth/github" component={Authentication} />
         <Route render={() => <div>NotFound</div>} />
       </Switch>
     </ConnectedRouter>
