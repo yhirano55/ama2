@@ -9,8 +9,7 @@ export const history = createBrowserHistory()
 const middlewares = []
 
 if (process.env.NODE_ENV === "development") {
-  const logger = createLogger()
-  middlewares.push(logger)
+  middlewares.push(createLogger())
 }
 
 middlewares.push(routerMiddleware(history))
